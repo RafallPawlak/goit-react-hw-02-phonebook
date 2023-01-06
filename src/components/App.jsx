@@ -79,7 +79,7 @@ export class App extends Component  {
         <Filter value={filter} onChange={this.inputFilter}/>
              )}
             {contacts.length > 0 ?
-            (<ContactList contacts={filterContact} deleteContact={this.deleteContact} />) : (Report.warning('Phonebook Warning', 'Contact book is empty',
+            (<ContactList contacts={filterContact} deleteContact={this.deleteContact} />) : (Report.info('Phonebook Warning', 'Contact book is empty',
               'Okay',
             ))}
         </Section>
