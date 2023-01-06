@@ -7,7 +7,7 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 
-export class App extends Component  {
+export class App extends Component {
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -24,20 +24,20 @@ export class App extends Component  {
     const normalizedName = name.toLowerCase();
     let isAdded = false;
 
-        this.state.contacts.forEach((element) => {
-          if (element.name.toLowerCase() === normalizedName) {
-            Report.warning(
-              'Phonebook Warning',
-              'The contact already exists with this name',
-              'Okay',
-            );
-              isAdded = true;
-            }
-        });
+    this.state.contacts.forEach((element) => {
+      if (element.name.toLowerCase() === normalizedName) {
+        Report.warning(
+          'Phonebook Warning',
+          'The contact already exists with this name',
+          'Okay',
+        );
+        isAdded = true;
+      }
+    });
 
-        if (isAdded) {
-            return;
-        }
+    if (isAdded) {
+      return;
+    }
     const contact = {
       id: nanoid(),
       name,
@@ -54,7 +54,7 @@ export class App extends Component  {
       contacts: prevState.contacts.filter((contact) => contact.id !== id),
     }));
   };
- 
+
   inputFilter = (event) => {
     this.setState({ filter: event.currentTarget.value });
   };
@@ -73,13 +73,13 @@ export class App extends Component  {
       <>
         <Section title="Phonebook">
           <ContactForm onSubmit={this.addContact} />
-        </Section>  
+        </Section>
         <Section title="Contacts">
           {contacts.length > 1 && (
-        <Filter value={filter} onChange={this.inputFilter}/>
-             )}
-            {contacts.length > 0 ?
-            (<ContactList contacts={filterContact} deleteContact={this.deleteContact} />) : (Report.info('Phonebook Warning', 'Contact book is empty',
+            <Filter value={filter} onChange={this.inputFilter} />
+          )}
+          {contacts.length > 0 ?
+            (<ContactList contacts={filterContact} deleteContact={this.deleteContact} />) : (Report.info('Phonebook Warning', 'Contact book is empty!',
               'Okay',
             ))}
         </Section>
