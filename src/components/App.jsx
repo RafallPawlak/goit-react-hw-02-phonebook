@@ -16,38 +16,36 @@ export class App extends Component {
       { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: ''
   };
 
-  addContact = ({ name, number }) => {
-    const normalizedName = name.toLowerCase();
-    let isAdded = false;
+  addContact = event => {
+    event.preventDefault();
 
-    this.state.contacts.forEach((element) => {
-      if (element.name.toLowerCase() === normalizedName) {
-        Report.warning(
-          'Phonebook Warning',
-          'The contact already exists with this name',
-          'Okay',
-        );
-        isAdded = true;
-      }
-    });
+    const form = event.target;
+    const { name, number } = form.elements;
 
-    if (isAdded) {
-      return;
-    }
     const contact = {
+      name: name.value,
+      number: number.value,
       id: nanoid(),
-      name,
-      number,
     };
 
-    this.setState((prevState) => ({
+    if (this.state.contacts.find(contact => contact.name === name.value)) {
+      Report.warning(
+        'Phonebook Warning',
+        'The contact already exists with this name',
+        'Okay',
+      );
+      return;
+    }
+
+    this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
+    form.reset();
   };
+
+
 
   deleteContact = (id) => {
     this.setState((prevState) => ({
